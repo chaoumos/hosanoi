@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+interface Props {
+    frontmatter: {
+        title: string;
+        description: string;
+        pubDate: string;
+        image?: string;
+    };
+}
+
+const { frontmatter } = Astro.props;
+const { title, description, pubDate } = frontmatter;
+---
+
+<Layout title={frontmatter.title} description={frontmatter.description}>
+    <div class="container mx-auto py-8">
+        <article class="mb-8">
+            <header class="mb-4">
+                <h1 class="text-3xl font-bold mb-2">{title}</h1>
+                <time class="text-gray-600">Published: {new Date(pubDate).toLocaleDateString()}</time>
+                <p class="text-gray-700">{description}</p>
+            </header>
+            <div class="prose lg:prose-xl">
+                <slot />
+            </div>
+        </article>
+    </div>
+</Layout>
